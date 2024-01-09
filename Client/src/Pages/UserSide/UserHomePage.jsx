@@ -8,6 +8,7 @@ import { useViewUsersMutation } from "../../Slices/usersApiSlice.js";
 
 const UserHomePage = () => {
   const { userInfo } = useSelector((state) => state.authentication);
+  console.log(userInfo)
   const [viewUsers] = useViewUsersMutation();
   const [userLogoutApiCall] = useUserLogoutMutation();
   const [users, setUsers] = useState([]);
@@ -31,10 +32,8 @@ const UserHomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("reaching");
-        console.log(userInfo.id);
         const result = await viewUsers({ id: userInfo.id });
-        console.log(result);
+        console.log(result)
         if (result.data) {
           setUsers(result.data.userDetails);
         }
@@ -45,7 +44,7 @@ const UserHomePage = () => {
 
     fetchData();
   }, [viewUsers]);
-
+console.log(users)
   return (
     <>
       <section className="flex items-center justify-center min-h-screen bg-gray-100">

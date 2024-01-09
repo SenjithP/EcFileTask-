@@ -1,20 +1,22 @@
 import jwt from "jsonwebtoken";
 
 const adminVerifyToken = (req, res, next) => {
-  const token = req.headers.authorization;
-
+  const token = req.cookies.adminjwt;
   if (!token) {
     return res.status(401).json({ error: "Unauthorized: No token provided" });
   }
 
-  jwt.verify(token, "ADMIN_JWT_SECRET", (err, decoded) => {
-    if (err) {
+  try {
+    const decodedToken = jwt.verify(token, process.env.ADMIN_JWT_SECRET);
+    const adminId = decodedToken.adminId;
+    if (!adminId) {
       return res.status(401).json({ error: "Unauthorized: Invalid token" });
     }
 
-    req.user = decoded;
     next();
-  });
+  } catch (error) {
+    return res.status(401).json({ error: "Unauthorized: Invalid token" });  
+  }
 };
 
 export default adminVerifyToken;

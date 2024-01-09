@@ -49,7 +49,6 @@ export const userRegistration = async (req, res) => {
           folder: "profileImages",
         });
       }
-      console.log(profileImages);
 
       const hashPassword = await bcrypt.hash(userPassword, 10);
       const user = new User({
