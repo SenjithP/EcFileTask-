@@ -17,7 +17,7 @@ export const sendVerifyMail = async (name, email, user_id) => {
         to: email,
         subject: "For Verification Mail",
         html: `<p> Hey ${name}, This is from userManagementTask. Please click the button below to verify your email:</p>
-               <a href='http://localhost:3080/userLogin?id=${user_id}' style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Verify Email</a>`,
+               <a href='https://ecfiletask.senjith.shop/userLogin?id=${user_id}' style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Verify Email</a>`,
       };
   
       transporter.sendMail(mailOptions, function (error, info) {

@@ -32,6 +32,7 @@ app.use(cors({ origin: true }));
 app.use(express.static("Public"));
 app.use(compression());
 app.use(morgan("dev"));
+app.use(bodyParser.json({ limit: '10mb' }));
 
 // Routes
 app.use("/api/userAuthentication", userAuthenticationRouter);
