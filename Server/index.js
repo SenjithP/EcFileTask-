@@ -11,6 +11,9 @@ import userRouter from "./Routes/userRouter.js";
 import cloudinary from "cloudinary";
 import path from "path"
 import adminRouter from "./Routes/adminRouter.js";
+const currentWorkingDir = path.resolve();
+const parentDir = path.dirname(currentWorkingDir)
+
 
 dotenv.config();
 const app = express();
@@ -42,14 +45,29 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something went wrong!");
 });
 
+
+
+const enviornment = "production"
+
+if (enviornment === 'production') { 
+    const __dirname = path.resolve();
+    app.use(express.static(path.join(parentDir, '/Client/dist')));
+  
+    app.get('*', (req, res) =>
+      res.sendFile(path.resolve(parentDir, 'Client', 'dist', 'index.html'))
+    );
+  } else {
+    app.get('/', (req, res) => {
+      res.send('API is running....');
+    });
+  }
+
+
+
 // MongoDB connection
 connect();
 
-const _dirname = path.resolve()
-app.use(express.static(path.join(_dirname,'Client/dist')));
 
-app.get('*',(req,res) => res.sendFile(path.resolve(_dirname, 'Client', 'dist',
-'index.html')))
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
