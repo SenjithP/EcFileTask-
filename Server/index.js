@@ -13,6 +13,7 @@ import path from "path"
 import adminRouter from "./Routes/adminRouter.js";
 const currentWorkingDir = path.resolve();
 const parentDir = path.dirname(currentWorkingDir)
+import bodyParser from 'body-parser';
 
 
 dotenv.config();
