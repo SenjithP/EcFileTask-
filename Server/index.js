@@ -9,6 +9,7 @@ import morgan from "morgan";
 import compression from "compression";
 import userRouter from "./Routes/userRouter.js";
 import cloudinary from "cloudinary";
+import path from "path"
 import adminRouter from "./Routes/adminRouter.js";
 
 dotenv.config();
@@ -43,6 +44,12 @@ app.use((err, req, res, next) => {
 
 // MongoDB connection
 connect();
+
+const _dirname = path.resolve()
+app.use(express.static(path.join(_dirname,'Client/dist')));
+
+app.get('*',(req,res) => res.sendFile(path.resolve(_dirname, 'Client', 'dist',
+'index.html')))
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
